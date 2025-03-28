@@ -1,5 +1,15 @@
 # @date-fns/utc
 
+---
+
+We forked the repo because the library [replaces][1] non-UTC methods with UTC ones using a property set, which is a prohibited operation within Temporal Workflows. The library was automatically inserted into the workflow bundle (by `bundle-workflows.cjs`) and a static check prevented the workflow from starting properly. This was the case even when the problematic line in the library wasn't evaluated in any part of the workflow.
+
+We replaced the `UTCDateMini` definition linked above with our own: [mini.js](src/date/mini.js). Rather than using property setting to replace non-UTC methods, our version uses method overrides over the `extend Date` class.
+
+[1]: https://github.com/date-fns/utc/blob/d2b7442216d72a5dbdc23519aef067d998c7c58b/src/date/mini.js#L27
+
+---
+
 The package provides `Date` extensions `UTCDate` and `UTCDateMini` that perform all calculations in UTC rather than the system time zone.
 
 Using it makes [date-fns] operate in UTC but can be also used without it.
