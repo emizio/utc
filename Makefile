@@ -19,7 +19,7 @@ build: prepare-build
 	@env BABEL_ENV=cjs pnpm exec babel src --config-file ./babel.config.json --source-root src --out-dir lib --extensions .js,.ts --out-file-extension .cjs --quiet
 	@node copy.mjs
 	@make build-cts
-	@make copy-declarations
+	@make create-root-mjs
 	
 build-cts:
 	@find lib -name '*.d.ts' | while read file; do \
@@ -27,22 +27,17 @@ build-cts:
 		cp $$file $$new_file; \
 	done
 
-# New target to move declaration files to match package.json expectations
-copy-declarations:
-	@cp lib/index.d.ts ./index.d.ts
-	@cp lib/index.d.cts ./index.d.cts
-	@mkdir -p date utc
-	@cp lib/date/index.d.ts ./date/
-	@cp lib/date/index.d.cts ./date/
-	@cp lib/date/mini.d.ts ./date/
-	@cp lib/date/mini.d.cts ./date/
-	@cp lib/utc/index.d.ts ./utc/
-	@cp lib/utc/index.d.cts ./utc/
+# New target to create root index.mjs file
+create-root-mjs:
+	@echo '// ESM entry point for @date-fns/utc' > index.mjs
+	@echo 'export * from "./lib/index.js";' >> index.mjs
+	@echo "Created root index.mjs file"
+
 
 prepare-build:
 	@rm -rf lib
 	@mkdir -p lib
-	@rm -f index.d.ts index.d.cts
+	@rm -f index.d.ts index.d.cts index.mjs
 	@rm -rf date utc
 
 publish: build
@@ -52,4 +47,4 @@ publish-next: build
 	@cd lib && pnpm publish --access public --tag next
 
 link:
-	@cd lib && pnpm link
+	@cd lib && pnpm link 
