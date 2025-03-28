@@ -30,7 +30,10 @@
       "presets": [
         [
           "@babel/preset-env",
-          { "targets": { "node": "current" }, "modules": false }
+          { 
+            "targets": { "esmodules": true },
+            "modules": false
+          }
         ]
       ],
 
@@ -50,4 +53,4 @@
     "src/**/tysts.ts",
     "src/tysts/**/*"
   ]
-}
+} 
