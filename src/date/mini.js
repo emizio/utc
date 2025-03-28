@@ -15,15 +15,66 @@ export class UTCDateMini extends Date {
   }
 
   getTimezoneOffset() {
-    return 0;
+    return 0
+  }
+
+  getFullYear() {
+    return this.getUTCFullYear()
+  }
+  
+  getMonth() {
+    return this.getUTCMonth()
+  }
+  
+  getDate() {
+    return this.getUTCDate()
+  }
+
+  getDay() {
+    return this.getUTCDay()
+  }
+
+  getHours() {
+    return this.getUTCHours()
+  }
+
+  getMinutes() {
+    return this.getUTCMinutes()
+  }
+
+  getSeconds() {
+    return this.getUTCSeconds()
+  }
+
+  getMilliseconds() {
+    return this.getUTCMilliseconds()
+  }
+
+  setFullYear(year, month, date) {
+    return this.setUTCFullYear(...arguments)
+  }
+
+  setMonth(month, date) {
+    return this.setUTCMonth(...arguments)
+  }
+
+  setDate(day) {
+    return this.setUTCDate(day)
+  }
+  
+  setHours(hours, minutes, seconds, ms) {
+    return this.setUTCHours(...arguments)
+  }
+  
+  setMinutes(minutes, seconds, ms) {
+    return this.setUTCMinutes(...arguments)
+  }
+
+  setSeconds(seconds, ms) {
+    return this.setUTCSeconds(...arguments)
+  }
+  
+  setMilliseconds(milliseconds) {
+    return this.setUTCMilliseconds(milliseconds)
   }
 }
-
-// Replace getter and setter functions with UTC counterparts
-const re = /^(get|set)(?!UTC)/;
-Object.getOwnPropertyNames(Date.prototype).forEach((method) => {
-  if (re.test(method)) {
-    const utcMethod = Date.prototype[method.replace(re, "$1UTC")];
-    if (utcMethod) UTCDateMini.prototype[method] = utcMethod;
-  }
-});
