@@ -8,12 +8,6 @@ We replaced the `UTCDateMini` definition linked above with our own: [mini.js](sr
 
 [1]: https://github.com/date-fns/utc/blob/d2b7442216d72a5dbdc23519aef067d998c7c58b/src/date/mini.js#L27
 
-
-We also included some declaration file exports to the repo (which would otherwise be created at build time and published to the npm bundle) so they are directly
-accessible when the package is included as a dependency using a `github:` link.
-
-**If any further changes are made you must `pnpm build` and include changes to those files!**
-
 ---
 
 The package provides `Date` extensions `UTCDate` and `UTCDateMini` that perform all calculations in UTC rather than the system time zone.
